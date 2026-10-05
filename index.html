@@ -3,326 +3,728 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Combined Quality Testing Specifications Matrix</title>
+<title>Product Quality Specifications - Card View</title>
 <style>
   :root {
     --bg-body: #f1f5f9;
     --card-bg: #ffffff;
-    --text-main: #1e293b;
+    --text-main: #0f172a;
     --text-muted: #64748b;
     --border-color: #e2e8f0;
-    
-    /* Product Theme Colors */
-    --zc-color: #0284c7;
-    --zc-bg: #e0f2fe;
-    --zc-border: #bae6fd;
 
-    --za-color: #0d9488;
-    --za-bg: #ccfbf1;
-    --za-border: #99f6e4;
-
-    --zb-color: #7c3aed;
-    --zb-bg: #ede9fe;
+    /* 1. Zinc Borate (Purple) */
+    --zb-primary: #7c3aed;
     --zb-border: #ddd6fe;
+    --zb-badge-bg: #ede9fe;
+    --zb-badge-text: #6d28d9;
 
-    /* Condition Highlight */
-    --badge-special-bg: #fef3c7;
-    --badge-special-text: #92400e;
-    --badge-special-border: #fde68a;
+    /* 2. Zinc Oxide Active (Teal) */
+    --za-primary: #0d9488;
+    --za-border: #99f6e4;
+    --za-badge-bg: #ccfbf1;
+    --za-badge-text: #0f766e;
+
+    /* 3. Zinc Carbonate (Sky Blue) */
+    --zc-primary: #0284c7;
+    --zc-border: #bae6fd;
+    --zc-badge-bg: #e0f2fe;
+    --zc-badge-text: #0369a1;
+
+    /* 4. Zinc Sulphate Monohydrate (Amber/Orange) */
+    --zs-primary: #d97706;
+    --zs-border: #fde68a;
+    --zs-badge-bg: #fef3c7;
+    --zs-badge-text: #b45309;
+
+    /* Condition Highlight (Warm Rose/Red) */
+    --special-bg: #fee2e2;
+    --special-text: #991b1b;
+    --special-border: #fecaca;
   }
 
   body {
     background-color: var(--bg-body);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 30px 15px;
     display: flex;
     justify-content: center;
-    padding: 30px 15px;
-    margin: 0;
   }
 
-  .table-card {
-    background: var(--card-bg);
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
-    overflow: hidden;
+  .main-wrapper {
     width: 100%;
-    max-width: 1250px;
-    border: 1px solid var(--border-color);
+    max-width: 1300px;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
   }
 
-  /* Master Header */
-  .card-header {
+  /* Header Card */
+  .master-header {
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     color: #ffffff;
-    padding: 24px 30px;
+    padding: 28px 32px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 16px;
   }
 
-  .card-header h1 {
+  .master-header h1 {
     margin: 0;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 700;
     letter-spacing: 0.5px;
   }
 
-  .card-header .subtitle {
-    margin-top: 4px;
-    font-size: 13px;
+  .master-header p {
+    margin: 6px 0 0;
+    font-size: 13.5px;
     color: #94a3b8;
   }
 
-  .legend-container {
+  .nav-pills {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     flex-wrap: wrap;
   }
 
-  .legend-item {
-    font-size: 11.5px;
-    font-weight: 600;
-    padding: 4px 10px;
+  .nav-pill {
+    padding: 8px 16px;
     border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    text-decoration: none;
+    transition: opacity 0.2s ease, transform 0.15s ease;
   }
 
-  .legend-zc { background: var(--zc-bg); color: var(--zc-color); }
-  .legend-za { background: var(--za-bg); color: var(--za-color); }
-  .legend-zb { background: var(--zb-bg); color: var(--zb-color); }
+  .nav-pill:hover { 
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+  
+  .pill-zb { background: var(--zb-badge-bg); color: var(--zb-primary); }
+  .pill-za { background: var(--za-badge-bg); color: var(--za-primary); }
+  .pill-zc { background: var(--zc-badge-bg); color: var(--zc-primary); }
+  .pill-zs { background: var(--zs-badge-bg); color: var(--zs-primary); }
 
-  /* Product Section Banner */
-  .section-banner {
-    padding: 12px 24px;
-    font-size: 14px;
+  /* Section Title Bar */
+  .section-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    border-radius: 12px;
     font-weight: 700;
-    letter-spacing: 0.6px;
+    font-size: 16px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .bar-zb { background: #ede9fe; color: #6d28d9; border-left: 6px solid var(--zb-primary); }
+  .bar-za { background: #ccfbf1; color: #0f766e; border-left: 6px solid var(--za-primary); }
+  .bar-zc { background: #e0f2fe; color: #0369a1; border-left: 6px solid var(--zc-primary); }
+  .bar-zs { background: #fef3c7; color: #b45309; border-left: 6px solid var(--zs-primary); }
+
+  .bar-count {
+    font-size: 12px;
+    background: rgba(255, 255, 255, 0.75);
+    padding: 4px 10px;
+    border-radius: 12px;
+  }
+
+  /* Grid Layout */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 18px;
+  }
+
+  /* Box / Card Styling */
+  .spec-box {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 14px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .spec-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .box-zb { border-top: 4px solid var(--zb-primary); }
+  .box-za { border-top: 4px solid var(--za-primary); }
+  .box-zc { border-top: 4px solid var(--zc-primary); }
+  .box-zs { border-top: 4px solid var(--zs-primary); }
+
+  .box-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .box-num {
+    font-size: 12px;
+    font-weight: 700;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    border-top: 2px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
+    justify-content: center;
+    flex-shrink: 0;
   }
 
-  .banner-zc { background: #f0f9ff; color: #0369a1; border-left: 6px solid #0284c7; }
-  .banner-za { background: #f0fdfa; color: #0f766e; border-left: 6px solid #0d9488; }
-  .banner-zb { background: #faf5ff; color: #6d28d9; border-left: 6px solid #7c3aed; }
+  .box-zb .box-num { background: var(--zb-badge-bg); color: var(--zb-primary); }
+  .box-za .box-num { background: var(--za-badge-bg); color: var(--za-primary); }
+  .box-zc .box-num { background: var(--zc-badge-bg); color: var(--zc-primary); }
+  .box-zs .box-num { background: var(--zs-badge-bg); color: var(--zs-primary); }
 
-  /* Table */
-  .table-responsive {
-    overflow-x: auto;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-    font-size: 13px;
+  .box-title {
+    font-size: 14.5px;
+    font-weight: 700;
     color: var(--text-main);
+    line-height: 1.4;
   }
 
-  thead {
-    background-color: #f8fafc;
-    border-bottom: 2px solid var(--border-color);
-  }
-
-  th {
-    padding: 12px 18px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    font-size: 11.5px;
-    color: #475569;
-  }
-
-  td {
-    padding: 11px 18px;
-    border-bottom: 1px solid var(--border-color);
-    line-height: 1.5;
-    vertical-align: middle;
-  }
-
-  tbody tr:nth-child(even) {
-    background-color: #fbfcfe;
-  }
-
-  tbody tr:hover {
-    background-color: #f1f5f9;
-  }
-
-  .num {
-    text-align: center;
-    font-weight: 700;
-    color: var(--text-muted);
-    width: 45px;
-  }
-
-  .client {
-    font-weight: 600;
-    color: #0f172a;
-    width: 260px;
-  }
-
-  /* Specification Badges */
-  .specs-container {
+  /* Tags / Badges Container */
+  .box-badges {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
-    align-items: center;
+    gap: 6px;
   }
 
-  .badge {
-    display: inline-block;
-    padding: 2.5px 8px;
-    border-radius: 5px;
-    font-size: 11px;
+  .tag {
     font-family: Consolas, "Courier New", monospace;
+    font-size: 11px;
     font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 6px;
     white-space: nowrap;
   }
 
-  /* Specific Badges by Product */
-  .badge-zc {
-    background-color: var(--zc-bg);
-    color: var(--zc-color);
-    border: 1px solid var(--zc-border);
-  }
-
-  .badge-za {
-    background-color: var(--za-bg);
-    color: var(--za-color);
-    border: 1px solid var(--za-border);
-  }
-
-  .badge-zb {
-    background-color: var(--zb-bg);
-    color: var(--zb-color);
+  .tag-zb {
+    background: var(--zb-badge-bg);
+    color: var(--zb-badge-text);
     border: 1px solid var(--zb-border);
   }
 
-  .badge.special {
-    background-color: var(--badge-special-bg) !important;
-    color: var(--badge-special-text) !important;
-    border: 1px solid var(--badge-special-border) !important;
+  .tag-za {
+    background: var(--za-badge-bg);
+    color: var(--za-badge-text);
+    border: 1px solid var(--za-border);
+  }
+
+  .tag-zc {
+    background: var(--zc-badge-bg);
+    color: var(--zc-badge-text);
+    border: 1px solid var(--zc-border);
+  }
+
+  .tag-zs {
+    background: var(--zs-badge-bg);
+    color: var(--zs-badge-text);
+    border: 1px solid var(--zs-border);
+  }
+
+  .tag.special {
+    background: var(--special-bg) !important;
+    color: var(--special-text) !important;
+    border: 1px solid var(--special-border) !important;
     font-weight: 600;
+  }
+
+  @media (max-width: 600px) {
+    .cards-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
 </head>
 <body>
 
-<div class="table-card">
-  <!-- Header -->
-  <div class="card-header">
+<div class="main-wrapper">
+  <!-- Master Header -->
+  <div class="master-header">
     <div>
-      <h1>Combined Quality Testing Specifications Matrix</h1>
-      <div class="subtitle">Complete customer-wise testing requirements for Zinc Carbonate, Zinc Oxide Active, and Zinc Borate</div>
+      <h1>Customer Quality Specifications Matrix</h1>
+      <p>Card / Box view for quick shopfloor inspection & laboratory quality checks</p>
     </div>
-    <div class="legend-container">
-      <span class="legend-item legend-zc">Zinc Carbonate (17)</span>
-      <span class="legend-item legend-za">Zinc Oxide Active (26)</span>
-      <span class="legend-item legend-zb">Zinc Borate (11)</span>
+    <div class="nav-pills">
+      <a href="#section-zb" class="nav-pill pill-zb">1. Zinc Borate (11)</a>
+      <a href="#section-za" class="nav-pill pill-za">2. Zinc Oxide Active (26)</a>
+      <a href="#section-zc" class="nav-pill pill-zc">3. Zinc Carbonate (17)</a>
+      <a href="#section-zs" class="nav-pill pill-zs">4. Zinc Sulphate Mono (15)</a>
     </div>
   </div>
 
-  <div class="table-responsive">
-    <table>
-      <thead>
-        <tr>
-          <th class="num">No.</th>
-          <th>Customer / Product</th>
-          <th>Required Specifications</th>
-        </tr>
-      </thead>
+  <!-- 1. ZINC BORATE -->
+  <section id="section-zb">
+    <div class="section-bar bar-zb">
+      <span>1. Zinc Borate (2ZnO·3B₂O₃·3.5H₂O)</span>
+      <span class="bar-count">11 Customers</span>
+    </div>
+    <div class="cards-grid">
+      <div class="spec-box box-zb">
+        <div class="box-header"><div class="box-num">1</div><div class="box-title">General Specifications</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zb">Zn</span><span class="tag tag-zb">B2O3</span><span class="tag special">LOI (325°C/1H)</span><span class="tag tag-zb">PSD</span><span class="tag special">M/C (Instrument)</span><span class="tag tag-zb">pH</span><span class="tag tag-zb">Conductivity</span><span class="tag tag-zb">Sieve (325 Mesh)</span><span class="tag tag-zb">BD</span><span class="tag tag-zb">Whiteness</span><span class="tag tag-zb">LBD</span><span class="tag tag-zb">%S</span>
+        </div>
+      </div>
+      <div class="spec-box box-zb">
+        <div class="box-header"><div class="box-num">2</div><div class="box-title">Asian Paints</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zb">Zn</span><span class="tag tag-zb">B2O3</span><span class="tag tag-zb">PSD</span><span class="tag special">M/C (Oven)</span><span class="tag tag-zb">Sieve (325 Mesh)</span><span class="tag tag-zb">BD</span><span class="tag tag-zb">LBD</span><span class="tag tag-zb">pH</span><span class="tag tag-zb">Conductivity</span><span class="tag tag-zb">Whiteness</span><span class="tag special">LOI (450°C/2H)</span>
+        </div>
+      </div>
+      <div class="spec-box box-zb">
+        <div class="box-header"><div class="box-num">3</div><div class="box-title">Cyclone / Bag House / Artigum (Blend)</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zb">Zn</span><span class="tag tag-zb">B2O3</span><span class="tag tag-zb">PSD</span><span class="tag tag-zb">M/C</span><span class="tag tag-zb">Sieve (325 Mesh)</span><span class="tag tag-zb">BD</span><span class="tag tag-zb">LBD</span><span class="tag tag-zb">pH</span><span class="tag tag-zb">Conductivity</span><span class="tag tag-zb">Whiteness</span><span class="tag tag-zb">%S</span><span class="tag special">LOI (325°C/1H)</span>
+        </div>
+      </div>
+      <div class="spec-box box-zb">
+        <div class="box-header"><div class="box-num">4</div><div class="box-title">Polycab</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zb">Zn</span><span class="tag tag-zb">B2O3</span><span class="tag tag-zb">PSD</span><span class="tag tag-zb">M/C</span><span class="tag tag-zb">Sieve (325 Mesh)</span><span class="tag tag-zb">BD</span><span class="tag tag-zb">LBD</span><span class="tag tag-zb">pH</span><span class="tag tag-zb">Conductivity</span><span class="tag tag-zb">Whiteness</span><span class="tag tag-zb">%S</span><span class="tag special">LOI (325°C/1H)</span><span class="tag special">60 Mesh Dry Sieve (Black Particles)</span>
+        </div>
+      </div>
+      <div class="spec-box box-zb">
+        <div class="box-header"><div class="box-num">5</div><div class="box-title">Nisus (Non Sticker) (BZB)</div></div>
+        <div class="box-badges">
+          <span class="tag special">Zn (Individual)</span><span class="tag tag-zb">B2O3</span><span class="tag tag-zb">PSD</span><span class="tag tag-zb">M/C</span><span class="tag tag-zb">Sieve (325 Mesh)</span><span class="tag special">Dry Sieve (200 Mesh)</span><span class="tag tag-zb">LBD</span><span class="tag tag-zb">pH</span><span class="tag tag-zb">Conductivity</span><span class="tag tag-zb">Whiteness</span><span class="tag tag-zb">%S</span><span class="tag special">LOI (325°C/1H)</span>
+        </div>
+      </div>
+      <div class="spec-box box-zb">
+        <div class="box-header"><div class="box-num">6</div><div class="box-title">Quimialmel S.A. / Chemico / Akrochem</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zb">Zn</span><span class="tag tag-zb">B2O3</span><span class="tag tag-zb">PSD</span><span class="tag tag-zb">M/C</span><span class="tag tag-zb">Sieve (325 Mesh)</span><span class="tag special">BD (In Group)</span><span class="tag tag-zb">Whiteness</span><span class="tag special">LOI (325°C/1H)</span><span class="tag tag-zb">pH</span><span class="tag tag-zb">Conductivity</span>
+        </div>
+      </div>
+      <div class="spec-box box-zb">
+        <div class="box-header"><div class="box-num">7</div><div class="box-title">Quimialmel Italia (Duplication)</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zb">Zn</span><span class="tag tag-zb">B2O3</span><span class="tag tag-zb">PSD</span><span class="tag tag-zb">M/C</span><span class="tag tag-zb">Sieve (325 Mesh)</span><span class="tag special">BD (In Group)</span><span class="tag tag-zb">Whiteness</span><span class="tag special">LOI (325°C/1H)</span><span class="tag tag-zb">pH</span><span class="tag tag-zb">Conductivity</span>
+        </div>
+      </div>
+      <div class="spec-box box-zb">
+        <div class="box-header"><div class="box-num">8</div><div class="box-title">Nasika (Non Sticker)</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zb">Zn</span><span class="tag tag-zb">B2O3</span><span class="tag tag-zb">PSD</span><span class="tag tag-zb">M/C</span><span class="tag tag-zb">Sieve (325 Mesh)</span><span class="tag special">BD (In Group)</span><span class="tag tag-zb">LBD</span><span class="tag tag-zb">Whiteness</span><span class="tag special">LOI (325°C/1H)</span><span class="tag tag-zb">pH</span><span class="tag tag-zb">Conductivity</span>
+        </div>
+      </div>
+      <div class="spec-box box-zb">
+        <div class="box-header"><div class="box-num">9</div><div class="box-title">Omya India</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zb">Zn</span><span class="tag tag-zb">B2O3</span><span class="tag tag-zb">PSD</span><span class="tag tag-zb">M/C</span><span class="tag tag-zb">Sieve (325 Mesh)</span><span class="tag tag-zb">BD</span><span class="tag tag-zb">LBD</span><span class="tag tag-zb">Whiteness</span><span class="tag special">LOI (270°C &amp; 850°C/1H)</span><span class="tag tag-zb">pH</span><span class="tag tag-zb">Conductivity</span>
+        </div>
+      </div>
+      <div class="spec-box box-zb">
+        <div class="box-header"><div class="box-num">10</div><div class="box-title">Chemvera</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zb">Zn</span><span class="tag tag-zb">B2O3</span><span class="tag tag-zb">PSD</span><span class="tag tag-zb">M/C</span><span class="tag tag-zb">Sieve (325 Mesh)</span><span class="tag special">BD (In Group)</span><span class="tag tag-zb">Whiteness</span><span class="tag special">LOI (950°C/1H)</span><span class="tag tag-zb">pH</span><span class="tag tag-zb">Conductivity</span>
+        </div>
+      </div>
+      <div class="spec-box box-zb">
+        <div class="box-header"><div class="box-num">11</div><div class="box-title">Shakun</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zb">Zn</span><span class="tag tag-zb">B2O3</span><span class="tag special">LOI (325°C/1H)</span><span class="tag tag-zb">PSD</span><span class="tag special">M/C (Instrument)</span><span class="tag tag-zb">pH</span><span class="tag tag-zb">Conductivity</span><span class="tag special">Sieve (325 Mesh &amp; 120 Dry Sieve)</span><span class="tag tag-zb">BD</span><span class="tag tag-zb">Whiteness</span><span class="tag tag-zb">LBD</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <!-- 1. ZINC CARBONATE SECTION -->
-      <tbody>
-        <tr>
-          <td colspan="3" class="section-banner banner-zc">
-            <span>1. Zinc Carbonate (ZnCO₃)</span>
-            <span>Total Customers: 17</span>
-          </td>
-        </tr>
-        <tr><td class="num">1</td><td class="client">General Specification</td><td><div class="specs-container"><span class="badge badge-zc">Zn</span><span class="badge badge-zc">MI</span><span class="badge badge-zc">M/C</span><span class="badge badge-zc">Sieve (325 Mesh)</span><span class="badge badge-zc">TBD</span><span class="badge special">LOI (1000°C/1H)</span><span class="badge badge-zc">S/A</span><span class="badge badge-zc">S%</span></div></td></tr>
-        <tr><td class="num">2</td><td class="client">Antaria</td><td><div class="specs-container"><span class="badge badge-zc">Zn</span><span class="badge badge-zc">MI</span><span class="badge badge-zc">Ca</span><span class="badge badge-zc">Mg</span><span class="badge badge-zc">Na</span><span class="badge badge-zc">TBD</span><span class="badge badge-zc">Clearity</span><span class="badge badge-zc">M/C</span><span class="badge badge-zc">Dry Sieve (200 Mesh)</span><span class="badge badge-zc">Sieve (325 Mesh)</span><span class="badge special">LOI (1000°C/1H)</span><span class="badge badge-zc">S/A</span><span class="badge badge-zc">S%</span></div></td></tr>
-        <tr><td class="num">3</td><td class="client">Axensl</td><td><div class="specs-container"><span class="badge badge-zc">Zn</span><span class="badge badge-zc">MI</span><span class="badge badge-zc">M/C</span><span class="badge badge-zc">Sieve (325 Mesh)</span><span class="badge badge-zc">TBD</span><span class="badge badge-zc">S/A</span><span class="badge badge-zc">S%</span><span class="badge badge-zc">Na</span><span class="badge badge-zc">Cl</span><span class="badge badge-zc">pH</span><span class="badge badge-zc">Cond.</span><span class="badge badge-zc">LOI</span></div></td></tr>
-        <tr><td class="num">4</td><td class="client">P C Shroff / Tradeinvest</td><td><div class="specs-container"><span class="badge badge-zc">Zn</span><span class="badge badge-zc">MI</span><span class="badge badge-zc">M/C</span><span class="badge badge-zc">Sieve (325 Mesh)</span><span class="badge badge-zc">BD</span><span class="badge badge-zc">S/A</span><span class="badge badge-zc">S%</span><span class="badge badge-zc">pH</span><span class="badge badge-zc">Cond.</span></div></td></tr>
-        <tr><td class="num">5</td><td class="client">CQL</td><td><div class="specs-container"><span class="badge badge-zc">Zn</span><span class="badge badge-zc">MI</span><span class="badge badge-zc">M/C</span><span class="badge badge-zc">Sieve (325 Mesh)</span><span class="badge special">TBD (5000 tapping)</span><span class="badge badge-zc">S/A</span><span class="badge badge-zc">S%</span><span class="badge badge-zc">Cl</span><span class="badge badge-zc">pH</span><span class="badge badge-zc">Cond.</span></div></td></tr>
-        <tr><td class="num">6</td><td class="client">J. M. Panki</td><td><div class="specs-container"><span class="badge badge-zc">Zn</span><span class="badge badge-zc">MI</span><span class="badge badge-zc">M/C</span><span class="badge special">TBD (5000 tapping)(Quantachrome)</span><span class="badge badge-zc">Sieve</span><span class="badge special">LOI (1000°C/1H)</span><span class="badge badge-zc">pH</span><span class="badge badge-zc">Conductivity</span><span class="badge badge-zc">Cl</span><span class="badge badge-zc">PSD</span><span class="badge badge-zc">S/A</span><span class="badge badge-zc">S%</span></div></td></tr>
-        <tr><td class="num">7</td><td class="client">J. M. U.K</td><td><div class="specs-container"><span class="badge badge-zc">Zn</span><span class="badge badge-zc">MI</span><span class="badge badge-zc">M/C</span><span class="badge special">TBD (1250x4)</span><span class="badge badge-zc">Sieve</span><span class="badge badge-zc">pH</span><span class="badge badge-zc">Conductivity</span><span class="badge badge-zc">Cl</span><span class="badge badge-zc">PSD</span><span class="badge special">S/A (220°C/30 min.)</span><span class="badge badge-zc">S%</span><span class="badge badge-zc">CO2</span><span class="badge badge-zc">Na</span></div></td></tr>
-        <tr><td class="num">8</td><td class="client">OFG TraiZac / Proec</td><td><div class="specs-container"><span class="badge badge-zc">Zn</span><span class="badge badge-zc">Fe</span><span class="badge badge-zc">Pb</span><span class="badge badge-zc">Cd</span><span class="badge badge-zc">M/C</span><span class="badge badge-zc">Sieve</span><span class="badge badge-zc">BD</span><span class="badge special">LOI (1000°C/1H)</span><span class="badge badge-zc">AI (in Acetic Acid)</span><span class="badge badge-zc">SPGR</span></div></td></tr>
-        <tr><td class="num">9</td><td class="client">Akrochem</td><td><div class="specs-container"><span class="badge badge-zc">Zn</span><span class="badge badge-zc">MI</span><span class="badge badge-zc">M/C</span><span class="badge badge-zc">Sieve (230 Mesh)</span><span class="badge badge-zc">BD</span><span class="badge special">LOI (1000°C/1H)</span><span class="badge badge-zc">S/A</span><span class="badge badge-zc">SPGR</span><span class="badge badge-zc">S%</span><span class="badge badge-zc">pH</span><span class="badge badge-zc">Cond.</span><span class="badge badge-zc">Cl</span></div></td></tr>
-        <tr><td class="num">10</td><td class="client">Quimialmel</td><td><div class="specs-container"><span class="badge badge-zc">Zn</span><span class="badge badge-zc">MI</span><span class="badge badge-zc">M/C</span><span class="badge badge-zc">Sieve (325 Mesh)</span><span class="badge badge-zc">BD</span><span class="badge badge-zc">S/A</span><span class="badge badge-zc">S%</span></div></td></tr>
-        <tr><td class="num">11</td><td class="client">Pallav Chemicals</td><td><div class="specs-container"><span class="badge badge-zc">Zn</span><span class="badge badge-zc">MI</span><span class="badge badge-zc">M/C</span><span class="badge badge-zc">Sieve (325 Mesh)</span><span class="badge badge-zc">BD</span><span class="badge special">LOI (800°C/1H)</span><span class="badge badge-zc">S/A</span><span class="badge badge-zc">S%</span><span class="badge badge-zc">Cl</span><span class="badge badge-zc">Ca</span></div></td></tr>
-        <tr><td class="num">12</td><td class="client">V. B. Plast</td><td><div class="specs-container"><span class="badge badge-zc">Zn</span><span class="badge badge-zc">MI</span><span class="badge badge-zc">M/C</span><span class="badge badge-zc">Sieve (325 Mesh)</span><span class="badge badge-zc">TBD</span><span class="badge badge-zc">S/A</span><span class="badge badge-zc">S%</span></div></td></tr>
-        <tr><td class="num">13</td><td class="client">Aquachemie</td><td><div class="specs-container"><span class="badge badge-zc">Zn</span><span class="badge badge-zc">Fe</span><span class="badge badge-zc">Pb</span><span class="badge badge-zc">Cd</span><span class="badge badge-zc">M/C</span><span class="badge badge-zc">Sieve</span><span class="badge badge-zc">BD</span><span class="badge special">LOI (1000°C/1H)</span><span class="badge badge-zc">SPGR</span><span class="badge special">5% pH</span></div></td></tr>
-        <tr><td class="num">14</td><td class="client">Blue Line</td><td><div class="specs-container"><span class="badge badge-zc">Zn</span><span class="badge special">5% pH</span><span class="badge badge-zc">SPGR</span></div></td></tr>
-        <tr><td class="num">15</td><td class="client">Flare Mineral</td><td><div class="specs-container"><span class="badge badge-zc">Zn</span><span class="badge badge-zc">Fe</span><span class="badge badge-zc">Pb</span><span class="badge badge-zc">Cd</span><span class="badge badge-zc">M/C</span><span class="badge badge-zc">Sieve</span><span class="badge badge-zc">BD</span><span class="badge special">LOI (1000°C/1H)</span><span class="badge badge-zc">SPGR</span></div></td></tr>
-        <tr><td class="num">16</td><td class="client">Halol (PZC/DZC)</td><td><div class="specs-container"><span class="badge badge-zc">Zn</span><span class="badge badge-zc">MI</span><span class="badge badge-zc">Ca</span><span class="badge badge-zc">Mg</span><span class="badge badge-zc">Na</span><span class="badge badge-zc">M/C</span><span class="badge badge-zc">BD</span><span class="badge badge-zc">200 Mesh Dry Sieve</span><span class="badge badge-zc">Cl</span><span class="badge special">S/A (250°C/30 min.)</span><span class="badge badge-zc">S%</span></div></td></tr>
-        <tr><td class="num">17</td><td class="client">PZC (JM)</td><td><div class="specs-container"><span class="badge badge-zc">Zn</span><span class="badge badge-zc">MI</span><span class="badge badge-zc">Na</span><span class="badge badge-zc">M/C</span><span class="badge special">JBD (5000)</span><span class="badge badge-zc">325 Mesh Sieve</span><span class="badge badge-zc">Cl (Comparison)</span><span class="badge special">S/A (220°C/30 min.)</span><span class="badge badge-zc">S%</span><span class="badge special">10% pH</span><span class="badge badge-zc">CO2</span></div></td></tr>
-      </tbody>
+  <!-- 2. ZINC OXIDE ACTIVE -->
+  <section id="section-za">
+    <div class="section-bar bar-za">
+      <span>2. Zinc Oxide Active (ZnO Active)</span>
+      <span class="bar-count">26 Customers</span>
+    </div>
+    <div class="cards-grid">
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">1</div><div class="box-title">General Specifications</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag tag-za">MI</span><span class="tag tag-za">M/C</span><span class="tag special">LOI (540°C/1H)</span><span class="tag tag-za">Sieve (325 Mesh)</span><span class="tag tag-za">BD</span><span class="tag tag-za">S/A</span><span class="tag tag-za">%S</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">2</div><div class="box-title">CQL</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag tag-za">MI</span><span class="tag tag-za">M/C</span><span class="tag special">LOI (540°C/2H)</span><span class="tag tag-za">Sieve</span><span class="tag tag-za">TBD</span><span class="tag tag-za">Cl</span><span class="tag tag-za">CO2</span><span class="tag tag-za">pH</span><span class="tag special">Conductivity (Hot)</span><span class="tag tag-za">S/A</span><span class="tag tag-za">%S</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">3</div><div class="box-title">Sulpha Mill</div></div>
+        <div class="box-badges">
+          <span class="tag special">ZnO (Individual)</span><span class="tag tag-za">Fe</span><span class="tag tag-za">Pb</span><span class="tag special">Cd (Individual)</span><span class="tag tag-za">M/C</span><span class="tag tag-za">Sieve</span><span class="tag tag-za">BD</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">4</div><div class="box-title">Dorff Ketal</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag tag-za">MI</span><span class="tag special">Sieve (&lt;0.050)</span><span class="tag special">LOI (540°C/1H)</span><span class="tag tag-za">M/C</span><span class="tag special">TBD (2500 tapping)</span><span class="tag tag-za">S/A</span><span class="tag tag-za">%S</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">5</div><div class="box-title">Garware / Sagar / ALP Nishikawa (100 Dry Sieve)</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag tag-za">MI</span><span class="tag tag-za">Sieve</span><span class="tag special">LOI (540°C/1H)</span><span class="tag tag-za">M/C</span><span class="tag tag-za">BD</span><span class="tag tag-za">S/A</span><span class="tag special">Free Zinc</span><span class="tag tag-za">Conductivity</span><span class="tag tag-za">%S</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">6</div><div class="box-title">Kochi / Sud Chemie India</div></div>
+        <div class="box-badges">
+          <span class="tag special">ZnO (Af. LOI)</span><span class="tag tag-za">MI</span><span class="tag tag-za">Sieve</span><span class="tag special">LOI (540°C/1H)</span><span class="tag tag-za">M/C</span><span class="tag tag-za">BD</span><span class="tag tag-za">S/A</span><span class="tag tag-za">Na</span><span class="tag tag-za">CO2</span><span class="tag tag-za">Cl</span><span class="tag tag-za">pH</span><span class="tag tag-za">Conductivity</span><span class="tag tag-za">%S</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">7</div><div class="box-title">V. B. Plast</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag tag-za">MI</span><span class="tag tag-za">M/C</span><span class="tag special">LOI (540°C/1H)</span><span class="tag tag-za">Sieve</span><span class="tag special">PSD (D100) (1min)</span><span class="tag tag-za">BD</span><span class="tag tag-za">S/A</span><span class="tag tag-za">%S</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">8</div><div class="box-title">Domestic / Quimialmel / Traxys / Motherson / Metal Oksit / E.A.G. Kimiya</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag tag-za">MI</span><span class="tag tag-za">M/C</span><span class="tag special">LOI (540°C/1H)</span><span class="tag tag-za">Sieve</span><span class="tag tag-za">BD</span><span class="tag tag-za">S/A</span><span class="tag tag-za">%S</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">9</div><div class="box-title">Ceramic Grade</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag tag-za">MI</span><span class="tag tag-za">M/C</span><span class="tag special">LOI (540°C &amp; 950°C/1H)</span><span class="tag tag-za">Sieve</span><span class="tag tag-za">BD</span><span class="tag tag-za">S/A</span><span class="tag tag-za">%S</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">10</div><div class="box-title">Haldor Topsoe A/S</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag tag-za">MI</span><span class="tag tag-za">Na</span><span class="tag tag-za">M/C</span><span class="tag special">LOI (540°C/1H)</span><span class="tag tag-za">Sieve</span><span class="tag tag-za">BD</span><span class="tag tag-za">TBD</span><span class="tag tag-za">S/A</span><span class="tag tag-za">%S</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">11</div><div class="box-title">Mysore Polymer</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag tag-za">MI</span><span class="tag special">M/C (Oven)</span><span class="tag special">LOI (540°C &amp; 950°C/1H)</span><span class="tag tag-za">BD</span><span class="tag tag-za">S/A</span><span class="tag tag-za">Sieve</span><span class="tag tag-za">%S</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">12</div><div class="box-title">Mysore</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag tag-za">MI</span><span class="tag special">M/C (Instrument)</span><span class="tag special">LOI (540°C/1H)</span><span class="tag tag-za">BD</span><span class="tag tag-za">S/A</span><span class="tag tag-za">Sieve</span><span class="tag tag-za">%S</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">13</div><div class="box-title">Akrochem</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag tag-za">MI</span><span class="tag tag-za">M/C</span><span class="tag special">LOI (540°C/1H)</span><span class="tag tag-za">Sieve (230 Mesh)</span><span class="tag tag-za">BD</span><span class="tag tag-za">S/A</span><span class="tag tag-za">%S</span><span class="tag tag-za">SPGR</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">14</div><div class="box-title">Metal &amp; Additive / Adenda LLC</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag tag-za">MI</span><span class="tag tag-za">M/C</span><span class="tag special">LOI (540°C/1H)</span><span class="tag tag-za">Sieve (230 Mesh)</span><span class="tag tag-za">BD</span><span class="tag tag-za">S/A</span><span class="tag tag-za">SPGR</span><span class="tag tag-za">%S</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">15</div><div class="box-title">Devson Catalyst</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag tag-za">MI</span><span class="tag tag-za">M/C</span><span class="tag special">LOI (540°C/1H)</span><span class="tag tag-za">Sieve</span><span class="tag special">BD (Wood)</span><span class="tag special">TBD (2500 tapping)</span><span class="tag tag-za">S/A</span><span class="tag tag-za">%S</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">16</div><div class="box-title">Coated</div></div>
+        <div class="box-badges">
+          <span class="tag special">ZnO (XO/EBT)</span><span class="tag tag-za">MI</span><span class="tag tag-za">M/C</span><span class="tag special">LOI (540°C/1H)</span><span class="tag tag-za">Sieve</span><span class="tag tag-za">BD</span><span class="tag tag-za">S/A</span><span class="tag tag-za">SPGR</span><span class="tag tag-za">%S</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">17</div><div class="box-title">OFG TraiZac</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag tag-za">Fe</span><span class="tag tag-za">Pb</span><span class="tag tag-za">Cd</span><span class="tag tag-za">M/C</span><span class="tag special">LOI (540°C/1H)</span><span class="tag tag-za">Sieve</span><span class="tag tag-za">BD/TBD</span><span class="tag tag-za">S/A</span><span class="tag special">AI (In Acetic Acid)</span><span class="tag tag-za">SPGR</span><span class="tag tag-za">%S</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">18</div><div class="box-title">Kedar Metal</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag tag-za">MI</span><span class="tag tag-za">M/C</span><span class="tag special">LOI (600°C/1H)</span><span class="tag tag-za">Sieve</span><span class="tag tag-za">BD</span><span class="tag tag-za">S/A</span><span class="tag tag-za">%S</span><span class="tag special">PSD (D100) (In Group)</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">19</div><div class="box-title">Artigum</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag tag-za">MI</span><span class="tag tag-za">M/C</span><span class="tag special">LOI (540°C/1H)</span><span class="tag tag-za">Sieve</span><span class="tag tag-za">BD</span><span class="tag tag-za">S/A</span><span class="tag tag-za">%S</span><span class="tag special">PSD (D100)</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">20</div><div class="box-title">UOP</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag tag-za">MI</span><span class="tag tag-za">M/C</span><span class="tag special">LOI (540°C/1H)</span><span class="tag tag-za">Sieve</span><span class="tag tag-za">BD</span><span class="tag tag-za">S/A</span><span class="tag tag-za">%S</span><span class="tag tag-za">pH</span><span class="tag tag-za">Cond.</span><span class="tag tag-za">Cl</span><span class="tag tag-za">PSD</span><span class="tag tag-za">CO2</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">21</div><div class="box-title">Antaria</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag tag-za">MI</span><span class="tag tag-za">Ca</span><span class="tag tag-za">Mg</span><span class="tag tag-za">Na</span><span class="tag tag-za">M/C</span><span class="tag special">LOI (540°C/1H)</span><span class="tag tag-za">Sieve</span><span class="tag tag-za">TBD</span><span class="tag tag-za">S/A</span><span class="tag tag-za">%S</span><span class="tag special">Dry Sieve (200 Mesh)</span><span class="tag tag-za">Cl</span><span class="tag tag-za">pH</span><span class="tag tag-za">Cond.</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">22</div><div class="box-title">CEAT</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag special">MI (Pb, Cd)</span><span class="tag special">M/C (Oven) (110°C/2H)</span><span class="tag special">Sieve (200 Dry Sieve &amp; 325)</span><span class="tag tag-za">BD</span><span class="tag special">pH (2%)</span><span class="tag special">Conductivity (Hot/Cool)</span><span class="tag tag-za">S/A</span><span class="tag special">Acidity (H2SO4)</span><span class="tag special">Water Soluble (TDS By Meter)</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">23</div><div class="box-title">Paragon</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag special">M/C (Instrument)</span><span class="tag tag-za">Sieve (325)</span><span class="tag special">LOI (650°C/2Hrs)</span><span class="tag special">BD (50 &amp; 200 Tap)</span><span class="tag special">pH (5%)</span><span class="tag tag-za">S/A</span><span class="tag tag-za">MI</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">24</div><div class="box-title">P.T. Clariant</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag special">M/C (Instrument)</span><span class="tag tag-za">Sieve (325)</span><span class="tag special">LOI (540°C/1Hr)</span><span class="tag tag-za">BD</span><span class="tag tag-za">S/A</span><span class="tag tag-za">MI</span><span class="tag tag-za">Na</span><span class="tag tag-za">Cl</span><span class="tag tag-za">pH</span><span class="tag tag-za">Cond.</span><span class="tag tag-za">%S</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">25</div><div class="box-title">Biesterfeld Simko</div></div>
+        <div class="box-badges">
+          <span class="tag tag-za">ZnO</span><span class="tag tag-za">MI</span><span class="tag tag-za">M/C</span><span class="tag special">LOI (540°C/1H)</span><span class="tag tag-za">Sieve (325 Mesh)</span><span class="tag tag-za">BD</span><span class="tag tag-za">S/A</span><span class="tag tag-za">%S</span>
+        </div>
+      </div>
+      <div class="spec-box box-za">
+        <div class="box-header"><div class="box-num">26</div><div class="box-title">Biesterfeld Simko (Coated)</div></div>
+        <div class="box-badges">
+          <span class="tag special">ZnO (XO &amp; EBT)</span><span class="tag tag-za">MI</span><span class="tag tag-za">M/C</span><span class="tag special">LOI (540°C/1H)</span><span class="tag tag-za">Sieve (325 Mesh)</span><span class="tag tag-za">BD</span><span class="tag tag-za">S/A</span><span class="tag tag-za">%S</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <!-- 2. ZINC OXIDE ACTIVE SECTION -->
-      <tbody>
-        <tr>
-          <td colspan="3" class="section-banner banner-za">
-            <span>2. Zinc Oxide Active (ZnO Active)</span>
-            <span>Total Customers: 26</span>
-          </td>
-        </tr>
-        <tr><td class="num">1</td><td class="client">General Specifications</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge badge-za">MI</span><span class="badge badge-za">M/C</span><span class="badge special">LOI (540°C/1H)</span><span class="badge badge-za">Sieve (325 Mesh)</span><span class="badge badge-za">BD</span><span class="badge badge-za">S/A</span><span class="badge badge-za">%S</span></div></td></tr>
-        <tr><td class="num">2</td><td class="client">CQL</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge badge-za">MI</span><span class="badge badge-za">M/C</span><span class="badge special">LOI (540°C/2H)</span><span class="badge badge-za">Sieve</span><span class="badge badge-za">TBD</span><span class="badge badge-za">Cl</span><span class="badge badge-za">CO2</span><span class="badge badge-za">pH</span><span class="badge special">Conductivity (Hot)</span><span class="badge badge-za">S/A</span><span class="badge badge-za">%S</span></div></td></tr>
-        <tr><td class="num">3</td><td class="client">Sulpha Mill</td><td><div class="specs-container"><span class="badge special">ZnO (Individual)</span><span class="badge badge-za">Fe</span><span class="badge badge-za">Pb</span><span class="badge special">Cd (Individual)</span><span class="badge badge-za">M/C</span><span class="badge badge-za">Sieve</span><span class="badge badge-za">BD</span></div></td></tr>
-        <tr><td class="num">4</td><td class="client">Dorff Ketal</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge badge-za">MI</span><span class="badge special">Sieve (&lt;0.050)</span><span class="badge special">LOI (540°C/1H)</span><span class="badge badge-za">M/C</span><span class="badge special">TBD (2500 tapping)</span><span class="badge badge-za">S/A</span><span class="badge badge-za">%S</span></div></td></tr>
-        <tr><td class="num">5</td><td class="client">Garware / Sagar Rubber Products / ALP Nishikawa (100 Dry Sieve)</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge badge-za">MI</span><span class="badge badge-za">Sieve</span><span class="badge special">LOI (540°C/1H)</span><span class="badge badge-za">M/C</span><span class="badge badge-za">BD</span><span class="badge badge-za">S/A</span><span class="badge special">Free Zinc</span><span class="badge badge-za">Conductivity</span><span class="badge badge-za">%S</span></div></td></tr>
-        <tr><td class="num">6</td><td class="client">Kochi / Sud Chemie India</td><td><div class="specs-container"><span class="badge special">ZnO (Af. LOI)</span><span class="badge badge-za">MI</span><span class="badge badge-za">Sieve</span><span class="badge special">LOI (540°C/1H)</span><span class="badge badge-za">M/C</span><span class="badge badge-za">BD</span><span class="badge badge-za">S/A</span><span class="badge badge-za">Na</span><span class="badge badge-za">CO2</span><span class="badge badge-za">Cl</span><span class="badge badge-za">pH</span><span class="badge badge-za">Conductivity</span><span class="badge badge-za">%S</span></div></td></tr>
-        <tr><td class="num">7</td><td class="client">V. B. Plast</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge badge-za">MI</span><span class="badge badge-za">M/C</span><span class="badge special">LOI (540°C/1H)</span><span class="badge badge-za">Sieve</span><span class="badge special">PSD (D100) (1min)</span><span class="badge badge-za">BD</span><span class="badge badge-za">S/A</span><span class="badge badge-za">%S</span></div></td></tr>
-        <tr><td class="num">8</td><td class="client">Domestic / Quimialmel Italia SPA / Traxys / Motherson / Metal Oksit / E.A.G. Kimiya</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge badge-za">MI</span><span class="badge badge-za">M/C</span><span class="badge special">LOI (540°C/1H)</span><span class="badge badge-za">Sieve</span><span class="badge badge-za">BD</span><span class="badge badge-za">S/A</span><span class="badge badge-za">%S</span></div></td></tr>
-        <tr><td class="num">9</td><td class="client">Ceramic Grade</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge badge-za">MI</span><span class="badge badge-za">M/C</span><span class="badge special">LOI (540°C &amp; 950°C/1H)</span><span class="badge badge-za">Sieve</span><span class="badge badge-za">BD</span><span class="badge badge-za">S/A</span><span class="badge badge-za">%S</span></div></td></tr>
-        <tr><td class="num">10</td><td class="client">Haldor Topsoe A/S</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge badge-za">MI</span><span class="badge badge-za">Na</span><span class="badge badge-za">M/C</span><span class="badge special">LOI (540°C/1H)</span><span class="badge badge-za">Sieve</span><span class="badge badge-za">BD</span><span class="badge badge-za">TBD</span><span class="badge badge-za">S/A</span><span class="badge badge-za">%S</span></div></td></tr>
-        <tr><td class="num">11</td><td class="client">Mysore Polymer</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge badge-za">MI</span><span class="badge special">M/C (Oven)</span><span class="badge special">LOI (540°C &amp; 950°C/1H)</span><span class="badge badge-za">BD</span><span class="badge badge-za">S/A</span><span class="badge badge-za">Sieve</span><span class="badge badge-za">%S</span></div></td></tr>
-        <tr><td class="num">12</td><td class="client">Mysore</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge badge-za">MI</span><span class="badge special">M/C (Instrument)</span><span class="badge special">LOI (540°C/1H)</span><span class="badge badge-za">BD</span><span class="badge badge-za">S/A</span><span class="badge badge-za">Sieve</span><span class="badge badge-za">%S</span></div></td></tr>
-        <tr><td class="num">13</td><td class="client">Akrochem</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge badge-za">MI</span><span class="badge badge-za">M/C</span><span class="badge special">LOI (540°C/1H)</span><span class="badge badge-za">Sieve (230 Mesh)</span><span class="badge badge-za">BD</span><span class="badge badge-za">S/A</span><span class="badge badge-za">%S</span><span class="badge badge-za">SPGR</span></div></td></tr>
-        <tr><td class="num">14</td><td class="client">Metal &amp; Additive / Adenda LLC</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge badge-za">MI</span><span class="badge badge-za">M/C</span><span class="badge special">LOI (540°C/1H)</span><span class="badge badge-za">Sieve (230 Mesh)</span><span class="badge badge-za">BD</span><span class="badge badge-za">S/A</span><span class="badge badge-za">SPGR</span><span class="badge badge-za">%S</span></div></td></tr>
-        <tr><td class="num">15</td><td class="client">Devson Catalyst</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge badge-za">MI</span><span class="badge badge-za">M/C</span><span class="badge special">LOI (540°C/1H)</span><span class="badge badge-za">Sieve</span><span class="badge special">BD (Wood)</span><span class="badge special">TBD (2500 tapping)</span><span class="badge badge-za">S/A</span><span class="badge badge-za">%S</span></div></td></tr>
-        <tr><td class="num">16</td><td class="client">Coated</td><td><div class="specs-container"><span class="badge special">ZnO (XO/EBT)</span><span class="badge badge-za">MI</span><span class="badge badge-za">M/C</span><span class="badge special">LOI (540°C/1H)</span><span class="badge badge-za">Sieve</span><span class="badge badge-za">BD</span><span class="badge badge-za">S/A</span><span class="badge badge-za">SPGR</span><span class="badge badge-za">%S</span></div></td></tr>
-        <tr><td class="num">17</td><td class="client">OFG TraiZac</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge badge-za">Fe</span><span class="badge badge-za">Pb</span><span class="badge badge-za">Cd</span><span class="badge badge-za">M/C</span><span class="badge special">LOI (540°C/1H)</span><span class="badge badge-za">Sieve</span><span class="badge badge-za">BD/TBD</span><span class="badge badge-za">S/A</span><span class="badge special">AI (In Acetic Acid)</span><span class="badge badge-za">SPGR</span><span class="badge badge-za">%S</span></div></td></tr>
-        <tr><td class="num">18</td><td class="client">Kedar Metal</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge badge-za">MI</span><span class="badge badge-za">M/C</span><span class="badge special">LOI (600°C/1H)</span><span class="badge badge-za">Sieve</span><span class="badge badge-za">BD</span><span class="badge badge-za">S/A</span><span class="badge badge-za">%S</span><span class="badge special">PSD (D100) (In Group)</span></div></td></tr>
-        <tr><td class="num">19</td><td class="client">Artigum</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge badge-za">MI</span><span class="badge badge-za">M/C</span><span class="badge special">LOI (540°C/1H)</span><span class="badge badge-za">Sieve</span><span class="badge badge-za">BD</span><span class="badge badge-za">S/A</span><span class="badge badge-za">%S</span><span class="badge special">PSD (D100)</span></div></td></tr>
-        <tr><td class="num">20</td><td class="client">UOP</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge badge-za">MI</span><span class="badge badge-za">M/C</span><span class="badge special">LOI (540°C/1H)</span><span class="badge badge-za">Sieve</span><span class="badge badge-za">BD</span><span class="badge badge-za">S/A</span><span class="badge badge-za">%S</span><span class="badge badge-za">pH</span><span class="badge badge-za">Cond.</span><span class="badge badge-za">Cl</span><span class="badge badge-za">PSD</span><span class="badge badge-za">CO2</span></div></td></tr>
-        <tr><td class="num">21</td><td class="client">Antaria</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge badge-za">MI</span><span class="badge badge-za">Ca</span><span class="badge badge-za">Mg</span><span class="badge badge-za">Na</span><span class="badge badge-za">M/C</span><span class="badge special">LOI (540°C/1H)</span><span class="badge badge-za">Sieve</span><span class="badge badge-za">TBD</span><span class="badge badge-za">S/A</span><span class="badge badge-za">%S</span><span class="badge special">Dry Sieve (200 Mesh)</span><span class="badge badge-za">Cl</span><span class="badge badge-za">pH</span><span class="badge badge-za">Cond.</span></div></td></tr>
-        <tr><td class="num">22</td><td class="client">CEAT</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge special">MI (Pb, Cd)</span><span class="badge special">M/C (Oven) (110°C/2H)</span><span class="badge special">Sieve (200 Dry Sieve &amp; 325)</span><span class="badge badge-za">BD</span><span class="badge special">pH (2%)</span><span class="badge special">Conductivity (Hot/Cool)</span><span class="badge badge-za">S/A</span><span class="badge special">Acidity (H2SO4)</span><span class="badge special">Water Soluble (TDS By Meter)</span></div></td></tr>
-        <tr><td class="num">23</td><td class="client">Paragon</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge special">M/C (Instrument)</span><span class="badge badge-za">Sieve (325)</span><span class="badge special">LOI (650°C/2Hrs)</span><span class="badge special">BD (50 &amp; 200 Tap)</span><span class="badge special">pH (5%)</span><span class="badge badge-za">S/A</span><span class="badge badge-za">MI</span></div></td></tr>
-        <tr><td class="num">24</td><td class="client">P.T. Clariant</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge special">M/C (Instrument)</span><span class="badge badge-za">Sieve (325)</span><span class="badge special">LOI (540°C/1Hr)</span><span class="badge badge-za">BD</span><span class="badge badge-za">S/A</span><span class="badge badge-za">MI</span><span class="badge badge-za">Na</span><span class="badge badge-za">Cl</span><span class="badge badge-za">pH</span><span class="badge badge-za">Cond.</span><span class="badge badge-za">%S</span></div></td></tr>
-        <tr><td class="num">25</td><td class="client">Biesterfeld Simko</td><td><div class="specs-container"><span class="badge badge-za">ZnO</span><span class="badge badge-za">MI</span><span class="badge badge-za">M/C</span><span class="badge special">LOI (540°C/1H)</span><span class="badge badge-za">Sieve (325 Mesh)</span><span class="badge badge-za">BD</span><span class="badge badge-za">S/A</span><span class="badge badge-za">%S</span></div></td></tr>
-        <tr><td class="num">26</td><td class="client">Biesterfeld Simko (Coated)</td><td><div class="specs-container"><span class="badge special">ZnO (XO &amp; EBT)</span><span class="badge badge-za">MI</span><span class="badge badge-za">M/C</span><span class="badge special">LOI (540°C/1H)</span><span class="badge badge-za">Sieve (325 Mesh)</span><span class="badge badge-za">BD</span><span class="badge badge-za">S/A</span><span class="badge badge-za">%S</span></div></td></tr>
-      </tbody>
+  <!-- 3. ZINC CARBONATE -->
+  <section id="section-zc">
+    <div class="section-bar bar-zc">
+      <span>3. Zinc Carbonate (ZnCO₃)</span>
+      <span class="bar-count">17 Customers</span>
+    </div>
+    <div class="cards-grid">
+      <div class="spec-box box-zc">
+        <div class="box-header"><div class="box-num">1</div><div class="box-title">General Specification</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zc">Zn</span><span class="tag tag-zc">MI</span><span class="tag tag-zc">M/C</span><span class="tag tag-zc">Sieve (325 Mesh)</span><span class="tag tag-zc">TBD</span><span class="tag special">LOI (1000°C/1H)</span><span class="tag tag-zc">S/A</span><span class="tag tag-zc">S%</span>
+        </div>
+      </div>
+      <div class="spec-box box-zc">
+        <div class="box-header"><div class="box-num">2</div><div class="box-title">Antaria</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zc">Zn</span><span class="tag tag-zc">MI</span><span class="tag tag-zc">Ca</span><span class="tag tag-zc">Mg</span><span class="tag tag-zc">Na</span><span class="tag tag-zc">TBD</span><span class="tag tag-zc">Clearity</span><span class="tag tag-zc">M/C</span><span class="tag tag-zc">Dry Sieve (200 Mesh)</span><span class="tag tag-zc">Sieve (325 Mesh)</span><span class="tag special">LOI (1000°C/1H)</span><span class="tag tag-zc">S/A</span><span class="tag tag-zc">S%</span>
+        </div>
+      </div>
+      <div class="spec-box box-zc">
+        <div class="box-header"><div class="box-num">3</div><div class="box-title">Axensl</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zc">Zn</span><span class="tag tag-zc">MI</span><span class="tag tag-zc">M/C</span><span class="tag tag-zc">Sieve (325 Mesh)</span><span class="tag tag-zc">TBD</span><span class="tag tag-zc">S/A</span><span class="tag tag-zc">S%</span><span class="tag tag-zc">Na</span><span class="tag tag-zc">Cl</span><span class="tag tag-zc">pH</span><span class="tag tag-zc">Cond.</span><span class="tag tag-zc">LOI</span>
+        </div>
+      </div>
+      <div class="spec-box box-zc">
+        <div class="box-header"><div class="box-num">4</div><div class="box-title">P C Shroff / Tradeinvest</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zc">Zn</span><span class="tag tag-zc">MI</span><span class="tag tag-zc">M/C</span><span class="tag tag-zc">Sieve (325 Mesh)</span><span class="tag tag-zc">BD</span><span class="tag tag-zc">S/A</span><span class="tag tag-zc">S%</span><span class="tag tag-zc">pH</span><span class="tag tag-zc">Cond.</span>
+        </div>
+      </div>
+      <div class="spec-box box-zc">
+        <div class="box-header"><div class="box-num">5</div><div class="box-title">CQL</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zc">Zn</span><span class="tag tag-zc">MI</span><span class="tag tag-zc">M/C</span><span class="tag tag-zc">Sieve (325 Mesh)</span><span class="tag special">TBD (5000 tapping)</span><span class="tag tag-zc">S/A</span><span class="tag tag-zc">S%</span><span class="tag tag-zc">Cl</span><span class="tag tag-zc">pH</span><span class="tag tag-zc">Cond.</span>
+        </div>
+      </div>
+      <div class="spec-box box-zc">
+        <div class="box-header"><div class="box-num">6</div><div class="box-title">J. M. Panki</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zc">Zn</span><span class="tag tag-zc">MI</span><span class="tag tag-zc">M/C</span><span class="tag special">TBD (5000 tapping)(Quantachrome)</span><span class="tag tag-zc">Sieve</span><span class="tag special">LOI (1000°C/1H)</span><span class="tag tag-zc">pH</span><span class="tag tag-zc">Conductivity</span><span class="tag tag-zc">Cl</span><span class="tag tag-zc">PSD</span><span class="tag tag-zc">S/A</span><span class="tag tag-zc">S%</span>
+        </div>
+      </div>
+      <div class="spec-box box-zc">
+        <div class="box-header"><div class="box-num">7</div><div class="box-title">J. M. U.K</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zc">Zn</span><span class="tag tag-zc">MI</span><span class="tag tag-zc">M/C</span><span class="tag special">TBD (1250x4)</span><span class="tag tag-zc">Sieve</span><span class="tag tag-zc">pH</span><span class="tag tag-zc">Conductivity</span><span class="tag tag-zc">Cl</span><span class="tag tag-zc">PSD</span><span class="tag special">S/A (220°C/30 min.)</span><span class="tag tag-zc">S%</span><span class="tag tag-zc">CO2</span><span class="tag tag-zc">Na</span>
+        </div>
+      </div>
+      <div class="spec-box box-zc">
+        <div class="box-header"><div class="box-num">8</div><div class="box-title">OFG TraiZac / Proec</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zc">Zn</span><span class="tag tag-zc">Fe</span><span class="tag tag-zc">Pb</span><span class="tag tag-zc">Cd</span><span class="tag tag-zc">M/C</span><span class="tag tag-zc">Sieve</span><span class="tag tag-zc">BD</span><span class="tag special">LOI (1000°C/1H)</span><span class="tag tag-zc">AI (in Acetic Acid)</span><span class="tag tag-zc">SPGR</span>
+        </div>
+      </div>
+      <div class="spec-box box-zc">
+        <div class="box-header"><div class="box-num">9</div><div class="box-title">Akrochem</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zc">Zn</span><span class="tag tag-zc">MI</span><span class="tag tag-zc">M/C</span><span class="tag tag-zc">Sieve (230 Mesh)</span><span class="tag tag-zc">BD</span><span class="tag special">LOI (1000°C/1H)</span><span class="tag tag-zc">S/A</span><span class="tag tag-zc">SPGR</span><span class="tag tag-zc">S%</span><span class="tag tag-zc">pH</span><span class="tag tag-zc">Cond.</span><span class="tag tag-zc">Cl</span>
+        </div>
+      </div>
+      <div class="spec-box box-zc">
+        <div class="box-header"><div class="box-num">10</div><div class="box-title">Quimialmel</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zc">Zn</span><span class="tag tag-zc">MI</span><span class="tag tag-zc">M/C</span><span class="tag tag-zc">Sieve (325 Mesh)</span><span class="tag tag-zc">BD</span><span class="tag tag-zc">S/A</span><span class="tag tag-zc">S%</span>
+        </div>
+      </div>
+      <div class="spec-box box-zc">
+        <div class="box-header"><div class="box-num">11</div><div class="box-title">Pallav Chemicals</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zc">Zn</span><span class="tag tag-zc">MI</span><span class="tag tag-zc">M/C</span><span class="tag tag-zc">Sieve (325 Mesh)</span><span class="tag tag-zc">BD</span><span class="tag special">LOI (800°C/1H)</span><span class="tag tag-zc">S/A</span><span class="tag tag-zc">S%</span><span class="tag tag-zc">Cl</span><span class="tag tag-zc">Ca</span>
+        </div>
+      </div>
+      <div class="spec-box box-zc">
+        <div class="box-header"><div class="box-num">12</div><div class="box-title">V. B. Plast</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zc">Zn</span><span class="tag tag-zc">MI</span><span class="tag tag-zc">M/C</span><span class="tag tag-zc">Sieve (325 Mesh)</span><span class="tag tag-zc">TBD</span><span class="tag tag-zc">S/A</span><span class="tag tag-zc">S%</span>
+        </div>
+      </div>
+      <div class="spec-box box-zc">
+        <div class="box-header"><div class="box-num">13</div><div class="box-title">Aquachemie</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zc">Zn</span><span class="tag tag-zc">Fe</span><span class="tag tag-zc">Pb</span><span class="tag tag-zc">Cd</span><span class="tag tag-zc">M/C</span><span class="tag tag-zc">Sieve</span><span class="tag tag-zc">BD</span><span class="tag special">LOI (1000°C/1H)</span><span class="tag tag-zc">SPGR</span><span class="tag special">5% pH</span>
+        </div>
+      </div>
+      <div class="spec-box box-zc">
+        <div class="box-header"><div class="box-num">14</div><div class="box-title">Blue Line</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zc">Zn</span><span class="tag special">5% pH</span><span class="tag tag-zc">SPGR</span>
+        </div>
+      </div>
+      <div class="spec-box box-zc">
+        <div class="box-header"><div class="box-num">15</div><div class="box-title">Flare Mineral</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zc">Zn</span><span class="tag tag-zc">Fe</span><span class="tag tag-zc">Pb</span><span class="tag tag-zc">Cd</span><span class="tag tag-zc">M/C</span><span class="tag tag-zc">Sieve</span><span class="tag tag-zc">BD</span><span class="tag special">LOI (1000°C/1H)</span><span class="tag tag-zc">SPGR</span>
+        </div>
+      </div>
+      <div class="spec-box box-zc">
+        <div class="box-header"><div class="box-num">16</div><div class="box-title">Halol (PZC/DZC)</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zc">Zn</span><span class="tag tag-zc">MI</span><span class="tag tag-zc">Ca</span><span class="tag tag-zc">Mg</span><span class="tag tag-zc">Na</span><span class="tag tag-zc">M/C</span><span class="tag tag-zc">BD</span><span class="tag tag-zc">200 Mesh Dry Sieve</span><span class="tag tag-zc">Cl</span><span class="tag special">S/A (250°C/30 min.)</span><span class="tag tag-zc">S%</span>
+        </div>
+      </div>
+      <div class="spec-box box-zc">
+        <div class="box-header"><div class="box-num">17</div><div class="box-title">PZC (JM)</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zc">Zn</span><span class="tag tag-zc">MI</span><span class="tag tag-zc">Na</span><span class="tag tag-zc">M/C</span><span class="tag special">JBD (5000)</span><span class="tag tag-zc">325 Mesh Sieve</span><span class="tag tag-zc">Cl (Comparison)</span><span class="tag special">S/A (220°C/30 min.)</span><span class="tag tag-zc">S%</span><span class="tag special">10% pH</span><span class="tag tag-zc">CO2</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <!-- 3. ZINC BORATE SECTION -->
-      <tbody>
-        <tr>
-          <td colspan="3" class="section-banner banner-zb">
-            <span>3. Zinc Borate (2ZnO·3B₂O₃·3.5H₂O)</span>
-            <span>Total Customers: 11</span>
-          </td>
-        </tr>
-        <tr><td class="num">1</td><td class="client">General Specifications</td><td><div class="specs-container"><span class="badge badge-zb">Zn</span><span class="badge badge-zb">B2O3</span><span class="badge special">LOI (325°C/1H)</span><span class="badge badge-zb">PSD</span><span class="badge special">M/C (Instrument)</span><span class="badge badge-zb">pH</span><span class="badge badge-zb">Conductivity</span><span class="badge badge-zb">Sieve (325 Mesh)</span><span class="badge badge-zb">BD</span><span class="badge badge-zb">Whiteness</span><span class="badge badge-zb">LBD</span><span class="badge badge-zb">%S</span></div></td></tr>
-        <tr><td class="num">2</td><td class="client">Asian Paints</td><td><div class="specs-container"><span class="badge badge-zb">Zn</span><span class="badge badge-zb">B2O3</span><span class="badge badge-zb">PSD</span><span class="badge special">M/C (Oven)</span><span class="badge badge-zb">Sieve (325 Mesh)</span><span class="badge badge-zb">BD</span><span class="badge badge-zb">LBD</span><span class="badge badge-zb">pH</span><span class="badge badge-zb">Conductivity</span><span class="badge badge-zb">Whiteness</span><span class="badge special">LOI (450°C/2H)</span></div></td></tr>
-        <tr><td class="num">3</td><td class="client">Cyclone / Bag House / Artigum (Blend)</td><td><div class="specs-container"><span class="badge badge-zb">Zn</span><span class="badge badge-zb">B2O3</span><span class="badge badge-zb">PSD</span><span class="badge badge-zb">M/C</span><span class="badge badge-zb">Sieve (325 Mesh)</span><span class="badge badge-zb">BD</span><span class="badge badge-zb">LBD</span><span class="badge badge-zb">pH</span><span class="badge badge-zb">Conductivity</span><span class="badge badge-zb">Whiteness</span><span class="badge badge-zb">%S</span><span class="badge special">LOI (325°C/1H)</span></div></td></tr>
-        <tr><td class="num">4</td><td class="client">Polycab</td><td><div class="specs-container"><span class="badge badge-zb">Zn</span><span class="badge badge-zb">B2O3</span><span class="badge badge-zb">PSD</span><span class="badge badge-zb">M/C</span><span class="badge badge-zb">Sieve (325 Mesh)</span><span class="badge badge-zb">BD</span><span class="badge badge-zb">LBD</span><span class="badge badge-zb">pH</span><span class="badge badge-zb">Conductivity</span><span class="badge badge-zb">Whiteness</span><span class="badge badge-zb">%S</span><span class="badge special">LOI (325°C/1H)</span><span class="badge special">60 Mesh Dry Sieve (Black Particles)</span></div></td></tr>
-        <tr><td class="num">5</td><td class="client">Nisus (Non Sticker) (BZB)</td><td><div class="specs-container"><span class="badge special">Zn (Individual)</span><span class="badge badge-zb">B2O3</span><span class="badge badge-zb">PSD</span><span class="badge badge-zb">M/C</span><span class="badge badge-zb">Sieve (325 Mesh)</span><span class="badge special">Dry Sieve (200 Mesh)</span><span class="badge badge-zb">LBD</span><span class="badge badge-zb">pH</span><span class="badge badge-zb">Conductivity</span><span class="badge badge-zb">Whiteness</span><span class="badge badge-zb">%S</span><span class="badge special">LOI (325°C/1H)</span></div></td></tr>
-        <tr><td class="num">6</td><td class="client">Quimialmel S.A. / Chemico / Akrochem</td><td><div class="specs-container"><span class="badge badge-zb">Zn</span><span class="badge badge-zb">B2O3</span><span class="badge badge-zb">PSD</span><span class="badge badge-zb">M/C</span><span class="badge badge-zb">Sieve (325 Mesh)</span><span class="badge special">BD (In Group)</span><span class="badge badge-zb">Whiteness</span><span class="badge special">LOI (325°C/1H)</span><span class="badge badge-zb">pH</span><span class="badge badge-zb">Conductivity</span></div></td></tr>
-        <tr><td class="num">7</td><td class="client">Quimialmel Italia (Duplication)</td><td><div class="specs-container"><span class="badge badge-zb">Zn</span><span class="badge badge-zb">B2O3</span><span class="badge badge-zb">PSD</span><span class="badge badge-zb">M/C</span><span class="badge badge-zb">Sieve (325 Mesh)</span><span class="badge special">BD (In Group)</span><span class="badge badge-zb">Whiteness</span><span class="badge special">LOI (325°C/1H)</span><span class="badge badge-zb">pH</span><span class="badge badge-zb">Conductivity</span></div></td></tr>
-        <tr><td class="num">8</td><td class="client">Nasika (Non Sticker)</td><td><div class="specs-container"><span class="badge badge-zb">Zn</span><span class="badge badge-zb">B2O3</span><span class="badge badge-zb">PSD</span><span class="badge badge-zb">M/C</span><span class="badge badge-zb">Sieve (325 Mesh)</span><span class="badge special">BD (In Group)</span><span class="badge badge-zb">LBD</span><span class="badge badge-zb">Whiteness</span><span class="badge special">LOI (325°C/1H)</span><span class="badge badge-zb">pH</span><span class="badge badge-zb">Conductivity</span></div></td></tr>
-        <tr><td class="num">9</td><td class="client">Omya India</td><td><div class="specs-container"><span class="badge badge-zb">Zn</span><span class="badge badge-zb">B2O3</span><span class="badge badge-zb">PSD</span><span class="badge badge-zb">M/C</span><span class="badge badge-zb">Sieve (325 Mesh)</span><span class="badge badge-zb">BD</span><span class="badge badge-zb">LBD</span><span class="badge badge-zb">Whiteness</span><span class="badge special">LOI (270°C &amp; 850°C/1H)</span><span class="badge badge-zb">pH</span><span class="badge badge-zb">Conductivity</span></div></td></tr>
-        <tr><td class="num">10</td><td class="client">Chemvera</td><td><div class="specs-container"><span class="badge badge-zb">Zn</span><span class="badge badge-zb">B2O3</span><span class="badge badge-zb">PSD</span><span class="badge badge-zb">M/C</span><span class="badge badge-zb">Sieve (325 Mesh)</span><span class="badge special">BD (In Group)</span><span class="badge badge-zb">Whiteness</span><span class="badge special">LOI (950°C/1H)</span><span class="badge badge-zb">pH</span><span class="badge badge-zb">Conductivity</span></div></td></tr>
-        <tr><td class="num">11</td><td class="client">Shakun</td><td><div class="specs-container"><span class="badge badge-zb">Zn</span><span class="badge badge-zb">B2O3</span><span class="badge special">LOI (325°C/1H)</span><span class="badge badge-zb">PSD</span><span class="badge special">M/C (Instrument)</span><span class="badge badge-zb">pH</span><span class="badge badge-zb">Conductivity</span><span class="badge special">Sieve (325 Mesh &amp; 120 Dry Sieve)</span><span class="badge badge-zb">BD</span><span class="badge badge-zb">Whiteness</span><span class="badge badge-zb">LBD</span></div></td></tr>
-      </tbody>
-    </table>
-  </div>
+  <!-- 4. ZINC SULPHATE MONOHYDRATE -->
+  <section id="section-zs">
+    <div class="section-bar bar-zs">
+      <span>4. Zinc Sulphate Monohydrate (ZnSO₄·H₂O)</span>
+      <span class="bar-count">15 Customers</span>
+    </div>
+    <div class="cards-grid">
+      <div class="spec-box box-zs">
+        <div class="box-header"><div class="box-num">1</div><div class="box-title">General Specification</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zs">Zn</span><span class="tag tag-zs">MI</span><span class="tag tag-zs">pH</span><span class="tag tag-zs">Sieve</span><span class="tag tag-zs">BD</span><span class="tag special">M/C (Oven)</span>
+        </div>
+      </div>
+      <div class="spec-box box-zs">
+        <div class="box-header"><div class="box-num">2</div><div class="box-title">Agria</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zs">Zn</span><span class="tag tag-zs">MI</span><span class="tag special">pH (4-5.5)</span><span class="tag tag-zs">Sieve</span><span class="tag special">Cl (4000ppm)</span><span class="tag tag-zs">BD</span><span class="tag special">M/C (Oven)</span><span class="tag special">10% Clarity</span>
+        </div>
+      </div>
+      <div class="spec-box box-zs">
+        <div class="box-header"><div class="box-num">3</div><div class="box-title">Avitec</div></div>
+        <div class="box-badges">
+          <span class="tag special">Zn (low)</span><span class="tag special">MI (filter)</span><span class="tag tag-zs">pH</span><span class="tag tag-zs">Sieve</span><span class="tag tag-zs">BD</span><span class="tag special">M/C (Oven)</span>
+        </div>
+      </div>
+      <div class="spec-box box-zs">
+        <div class="box-header"><div class="box-num">4</div><div class="box-title">Nataraj Neutraceuticals</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zs">Zn</span><span class="tag tag-zs">MI</span><span class="tag tag-zs">pH</span><span class="tag tag-zs">Sieve</span><span class="tag tag-zs">BD</span><span class="tag special">M/C (Oven)</span>
+        </div>
+      </div>
+      <div class="spec-box box-zs">
+        <div class="box-header"><div class="box-num">5</div><div class="box-title">P. D. Navkar</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zs">Zn</span><span class="tag tag-zs">MI</span><span class="tag special">pH (4.40-5.50)</span><span class="tag tag-zs">Sieve</span><span class="tag tag-zs">BD</span><span class="tag special">M/C (Oven)</span><span class="tag special">Cl (Comparison)</span><span class="tag special">10% Clarity</span>
+        </div>
+      </div>
+      <div class="spec-box box-zs">
+        <div class="box-header"><div class="box-num">6</div><div class="box-title">Veolia Water / Suez</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zs">Zn</span><span class="tag tag-zs">MI</span><span class="tag tag-zs">pH</span><span class="tag tag-zs">Sieve</span><span class="tag tag-zs">BD</span><span class="tag special">M/C (Oven)</span><span class="tag special">30% Clarity (pH=3.5)</span><span class="tag special">Cl (4000ppm)</span>
+        </div>
+      </div>
+      <div class="spec-box box-zs">
+        <div class="box-header"><div class="box-num">7</div><div class="box-title">Uniphos Colombia</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zs">Zn</span><span class="tag special">MI (Further)</span><span class="tag special">Ca (2000ppm)</span><span class="tag special">Mg (1000ppm) (in Group)</span><span class="tag special">pH (Min. 5)</span><span class="tag special">Sieve (40, 60, 100)</span><span class="tag tag-zs">BD</span><span class="tag special">M/C (Oven)</span><span class="tag special">MnSO4 (1000ppm)</span>
+        </div>
+      </div>
+      <div class="spec-box box-zs">
+        <div class="box-header"><div class="box-num">8</div><div class="box-title">Jubilant</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zs">Zn</span><span class="tag tag-zs">MI</span><span class="tag tag-zs">pH</span><span class="tag tag-zs">Sieve</span><span class="tag tag-zs">BD</span><span class="tag special">M/C (Oven)</span><span class="tag special">Clarity</span>
+        </div>
+      </div>
+      <div class="spec-box box-zs">
+        <div class="box-header"><div class="box-num">9</div><div class="box-title">Priya Chem / H.M.S / Chaitanya Priya Chem / Universal</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zs">Zn</span><span class="tag special">MI (Further)</span><span class="tag tag-zs">pH</span><span class="tag tag-zs">Sieve</span><span class="tag tag-zs">BD</span><span class="tag special">M/C (Oven)</span>
+        </div>
+      </div>
+      <div class="spec-box box-zs">
+        <div class="box-header"><div class="box-num">10</div><div class="box-title">Petrex</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zs">Zn</span><span class="tag tag-zs">MI</span><span class="tag tag-zs">pH</span><span class="tag tag-zs">Sieve</span><span class="tag special">Cl (3000ppm)</span><span class="tag tag-zs">BD</span><span class="tag special">M/C (Oven)</span><span class="tag special">10% Clarity</span>
+        </div>
+      </div>
+      <div class="spec-box box-zs">
+        <div class="box-header"><div class="box-num">11</div><div class="box-title">Kronox / Sujata Chemicals</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zs">Zn</span><span class="tag tag-zs">MI</span><span class="tag tag-zs">pH</span><span class="tag tag-zs">Sieve</span><span class="tag special">Cl (Comparison)</span><span class="tag tag-zs">BD</span><span class="tag special">M/C (Oven)</span><span class="tag special">Clarity</span>
+        </div>
+      </div>
+      <div class="spec-box box-zs">
+        <div class="box-header"><div class="box-num">12</div><div class="box-title">Pharma Chem</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zs">Zn</span><span class="tag tag-zs">MI</span><span class="tag tag-zs">pH</span><span class="tag tag-zs">Sieve</span><span class="tag tag-zs">BD</span><span class="tag special">M/C (Oven)</span>
+        </div>
+      </div>
+      <div class="spec-box box-zs">
+        <div class="box-header"><div class="box-num">13</div><div class="box-title">Traxys</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zs">Zn</span><span class="tag tag-zs">MI</span><span class="tag tag-zs">pH</span><span class="tag special">Sieve (40, 60 mesh)</span><span class="tag tag-zs">BD</span><span class="tag special">M/C (Oven)</span><span class="tag special">15% Clarity</span>
+        </div>
+      </div>
+      <div class="spec-box box-zs">
+        <div class="box-header"><div class="box-num">14</div><div class="box-title">Sudeep / Star Pharma</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zs">Zn</span><span class="tag tag-zs">MI</span><span class="tag tag-zs">pH</span><span class="tag tag-zs">Sieve</span><span class="tag tag-zs">BD</span><span class="tag special">M/C (Oven)</span><span class="tag special">35% Clarity</span><span class="tag tag-zs">Cl</span>
+        </div>
+      </div>
+      <div class="spec-box box-zs">
+        <div class="box-header"><div class="box-num">15</div><div class="box-title">GTZ India</div></div>
+        <div class="box-badges">
+          <span class="tag tag-zs">Zn</span><span class="tag tag-zs">MI</span><span class="tag tag-zs">pH</span><span class="tag special">Sieve (40, 60 mesh)</span><span class="tag tag-zs">BD</span><span class="tag special">M/C (Oven)</span><span class="tag special">10% Clarity</span>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 
 </body>
 </html>
+
